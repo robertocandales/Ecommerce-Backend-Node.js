@@ -9,7 +9,7 @@ produtCtrl.getProduct = async (req, res) => {
     const product = await Product.find();
     res.status(200).json(product);
   } catch (error) {
-    res.json({ message: error });
+    res.json({ error: error });
   }
 };
 //byId
@@ -21,7 +21,7 @@ produtCtrl.getAprouct =
       const result = await Product.findById(id);
       res.status(200).json(result);
     } catch (error) {
-      res.json({ message: error });
+      res.json({ error: error });
     }
   });
 
@@ -39,7 +39,7 @@ produtCtrl.createProduct = async (req, res) => {
     res.json({ message: 'Product Saved' });
     //res.json(newProduct);
   } catch (error) {
-    res.json({ message: error });
+    res.json({ error: error });
   }
 };
 
@@ -50,7 +50,7 @@ produtCtrl.deleteProduct = async (req, res) => {
     const product = await Product.findByIdAndDelete(req.params.id);
     res.json(product);
   } catch (error) {
-    res.json({ message: 'Product does not exist' });
+    res.json({ error: 'Product does not exist' });
   }
 };
 
@@ -69,7 +69,7 @@ produtCtrl.updateProduct =
       const result = await Product.findByIdAndUpdate(id, updateAproduct);
       res.status(200).json({ massage: `${result.name} uupdate success` });
     } catch (error) {
-      res.json({ message: error });
+      res.json({ error: error });
     }
   });
 module.exports = produtCtrl;
