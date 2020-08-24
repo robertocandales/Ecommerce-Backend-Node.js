@@ -13,7 +13,7 @@ const users = require('./src/routes/userRoutes');
 //Body-Parser Middelware
 app.use(express.json());
 
-//app.use(cors());
+app.use(cors());
 
 // DB config
 //const db = require('./config/keys').mongoURI;
