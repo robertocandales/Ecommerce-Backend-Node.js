@@ -22,9 +22,9 @@ userCtrl.getUserData =
 //Post User
 userCtrl.postUser = async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    const { email, password } = req.body;
     //Simple validation
-    if (!name || !email || !password) {
+    if (!email || !password) {
       return res.status(200).json({ error: 'please enter all fields' });
     }
     // Check for existing user
@@ -34,7 +34,6 @@ userCtrl.postUser = async (req, res) => {
       return res.status(200).json({ error: 'User already exist' });
     }
     const newUser = new User({
-      name,
       email,
       password,
     });
