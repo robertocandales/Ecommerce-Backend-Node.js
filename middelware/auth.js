@@ -17,7 +17,7 @@ async function auth(req, res, next) {
     req.user = decoded;
     next();
   } catch (error) {
-    res.status(400).json({ msg: 'Token is no valid' });
+    res.status(204).json({ msg: 'Token is no valid' });
   }
 }
 module.exports = auth;

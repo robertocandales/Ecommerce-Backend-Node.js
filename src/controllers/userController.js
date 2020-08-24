@@ -25,13 +25,13 @@ userCtrl.postUser = async (req, res) => {
     const { name, email, password } = req.body;
     //Simple validation
     if (!name || !email || !password) {
-      return res.status(400).json({ msg: 'please enter all fields' });
+      return res.status(204).json({ msg: 'please enter all fields' });
     }
     // Check for existing user
     const result = await User.findOne({ email });
     console.log(result);
     if (result) {
-      return res.status(400).json({ msg: 'User already exist' });
+      return res.status(204).json({ msg: 'User already exist' });
     }
     const newUser = new User({
       name,
@@ -70,18 +70,18 @@ userCtrl.postAuth = async (req, res) => {
     const { email, password } = req.body;
     //Simple validation
     if (!email || !password) {
-      return res.status(200).json({ msg: 'please enter all fields' });
+      return res.status(204).json({ msg: 'please enter all fields' });
     } else {
       // Check for existing user
       const user = await User.findOne({ email });
       console.log('user', user);
       if (!user) {
-        return res.status(200).json({ msg: 'User does not exist' });
+        return res.status(204).json({ msg: 'User does not exist' });
       } else {
         // Validate password
         const result = await bcrypt.compare(password, user.password);
         console.log('result', result);
-        if (!result) return res.status(200).json({ msg: 'Invalid credentials' });
+        if (!result) return res.status(204).json({ msg: 'Invalid credentials' });
         const result1 = await jwt.sign({ id: result.id }, config.get('jwtSecret'), {
           expiresIn: 3600,
         });

@@ -7,7 +7,7 @@ const Product = require('../models/productModels');
 produtCtrl.getProduct = async (req, res) => {
   try {
     const product = await Product.find();
-    res.status(200).json(product);
+    res.status(204).json(product);
   } catch (error) {
     res.json({ message: error });
   }
@@ -19,7 +19,7 @@ produtCtrl.getAprouct =
     try {
       const { id } = req.params;
       const result = await Product.findById(id);
-      res.status(200).json(result);
+      res.status(204).json(result);
     } catch (error) {
       res.json({ message: error });
     }
@@ -67,7 +67,7 @@ produtCtrl.updateProduct =
         price: req.body.price,
       };
       const result = await Product.findByIdAndUpdate(id, updateAproduct);
-      res.status(200).json({ massage: `${result.name} uupdate success` });
+      res.status(204).json({ massage: `${result.name} uupdate success` });
     } catch (error) {
       res.json({ message: error });
     }
