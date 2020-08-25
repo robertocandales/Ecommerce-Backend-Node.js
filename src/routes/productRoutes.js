@@ -14,10 +14,10 @@ const {
 router.route('/').get(getProduct);
 router.route('/:id').get(getAprouct);
 //Post
-router.route('/').post(createProduct);
+router.route('/').post(auth, createProduct);
 //Delete
-router.route('/:id').delete(deleteProduct);
+router.route('/:id').delete(auth, deleteProduct);
 //update
-router.route('/:id').put(updateProduct);
+router.route('/:id').put(auth, updateProduct);
 
 module.exports = router;

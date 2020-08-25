@@ -41,7 +41,7 @@ mongoose
   .catch((err) => console.log(err));
 
 //Routes
-app.use('/api/products', auth, products);
+app.use('/api/products', products);
 app.use('/api/user', users);
 
 app.use((req, res, next) => {
