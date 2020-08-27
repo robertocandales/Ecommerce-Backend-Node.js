@@ -7,7 +7,7 @@ async function auth(req, res, next) {
   console.log('token', token);
 
   //Check for token
-  if (!token) res.status(401).json({ msg: 'No token, authorization denied' });
+  if (!token) res.status(200).json({ msg: 'No token, authorization denied' });
 
   try {
     // Verify token
