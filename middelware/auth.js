@@ -7,7 +7,7 @@ async function auth(req, res, next) {
   console.log('token', token);
 
   //Check for token
-  if (!token) res.status(200).json({ msg: 'No token, authorization denied' });
+  if (!token) res.status(200).json({ error: 'No token, authorization denied' });
 
   try {
     // Verify token
@@ -17,7 +17,7 @@ async function auth(req, res, next) {
     req.user = decoded;
     next();
   } catch (error) {
-    res.status(200).json({ msg: 'Token is no valid' });
+    res.status(200).json({ error: 'Token is no valid' });
   }
 }
 module.exports = auth;
