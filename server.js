@@ -3,10 +3,12 @@ const morgan = require('morgan');
 const mongoose = require('mongoose');
 const cors = require('cors'); // middelware para comunucar backend con frontend
 const config = require('config');
+const fileUpload = require('express-fileupload');
 const auth = require('./middelware/auth');
 
 const app = express();
 app.use(morgan('dev'));
+app.use(fileUpload());
 const products = require('./src/routes/productRoutes');
 const users = require('./src/routes/userRoutes');
 

@@ -72,4 +72,24 @@ produtCtrl.updateProduct =
       res.json({ error: error });
     }
   });
+
+// Upload Endpoint
+produtCtrl.UpdateImage =
+  ('/upload',
+  async (req, res) => {
+    if (req.files === null) {
+      return res.status(200).json({ msg: 'No file uploaded' });
+    }
+    console.log('req', req.files);
+    const file = req.files.image;
+    file.mv(`${__dirname}/../uploads/${file.name}`, (err) => {
+      if (err) {
+        console.error(err);
+        return res.status(200).send(err);
+      }
+
+      res.json({ fileName: file.name, filePath: `/uploads/${file.name}` });
+    });
+  });
+
 module.exports = produtCtrl;

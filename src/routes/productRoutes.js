@@ -8,6 +8,7 @@ const {
   createProduct,
   deleteProduct,
   updateProduct,
+  UpdateImage,
 } = require('../controllers/productController');
 
 // @route  Get api/products
@@ -19,5 +20,6 @@ router.route('/').post(auth, createProduct);
 router.route('/:id').delete(auth, deleteProduct);
 //update
 router.route('/:id').put(auth, updateProduct);
-
+//UploadImage
+router.route('/upload').post(UpdateImage);
 module.exports = router;
