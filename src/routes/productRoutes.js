@@ -21,5 +21,5 @@ router.route('/:id').delete(auth, deleteProduct);
 //update
 router.route('/:id').put(auth, updateProduct);
 //UploadImage
-router.route('/upload').post(UpdateImage);
+router.route('/upload').post(auth, UpdateImage);
 module.exports = router;

@@ -67,7 +67,7 @@ produtCtrl.updateProduct =
         price: req.body.price,
       };
       const result = await Product.findByIdAndUpdate(id, updateAproduct);
-      res.status(200).json({ massage: `${result.name} uupdate success` });
+      res.status(200).json({ massage: `${result.name} update success` });
     } catch (error) {
       res.json({ error: error });
     }
