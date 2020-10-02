@@ -83,7 +83,7 @@ userCtrl.postAuth = async (req, res) => {
         console.log('result', result);
         if (!result) return res.status(error).json({ msg: 'Invalid credentials' });
         const result1 = await jwt.sign({ id: result.id }, config.get('jwtSecret'), {
-          expiresIn: 3600,
+          expiresIn: 43200,
         });
         //res.json({ result, token: result1 });
         res.json({

@@ -1,14 +1,20 @@
+const path = require('path');
 const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const cors = require('cors'); // middelware para comunucar backend con frontend
 const config = require('config');
+const dotenv = require('dotenv');
+const { notFound, errorHandler } = require('./middelware/errorMiddelware');
+
+dotenv.config();
+
 const fileUpload = require('express-fileupload');
 const auth = require('./middelware/auth');
 
 const app = express();
 app.use(morgan('dev'));
-app.use(fileUpload());
+
 const products = require('./src/routes/productRoutes');
 const users = require('./src/routes/userRoutes');
 
@@ -16,20 +22,9 @@ const users = require('./src/routes/userRoutes');
 app.use(express.json());
 
 app.use(cors());
-//app.use((req, res, next) => {
-//  res.header('Access-Control-Allow-Origin', '*');
-//  res.header(
-//    'Access-Control-Allow-Headers',
-//    'Origin, X-Requested-With, Content-Type, Accept, Authorization',
-//  );
-//  if (req.method === 'OPTIONS') {
-//    res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET');
-//    return res.status(200).json({});
-//  }
-//  next();
-//});
+
 // DB config
-//const db = require('./config/keys').mongoURI;
+
 const db = config.get('mongoURI');
 //Connect to Mongo
 mongoose
@@ -52,12 +47,10 @@ app.use((req, res, next) => {
   next(error);
 });
 
-app.use((error, req, res, next) => {
-  res.stauts(err.status || 500);
-  res.json({
-    message: error.message,
-  });
-});
-const port = process.env.PORT || 5000;
+app.use(notFound);
+app.use(errorHandler);
+const PORT = process.env.PORT || 5000;
 
-app.listen(port, () => console.log(`Server started on port ${port}`));
+app.listen(PORT, () =>
+  console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`),
+);

@@ -1,7 +1,10 @@
 produtCtrl = {};
 const auth = require('../../middelware/auth');
-
+const upload = require('../../middelware/uploads');
 const Product = require('../models/productModels');
+const path = require('path');
+const multer = require('multer');
+const fs = require('fs');
 
 //Get Products
 produtCtrl.getProduct = async (req, res) => {
@@ -73,23 +76,22 @@ produtCtrl.updateProduct =
     }
   });
 
-// Upload Endpoint
 produtCtrl.UpdateImage =
   ('/upload',
   async (req, res) => {
-    if (req.files === null) {
-      return res.status(200).json({ msg: 'No file uploaded' });
-    }
-    console.log('req', req.files);
-    const file = req.files.image;
-    file.mv(`${__dirname}/../uploads/${file.name}`, (err) => {
-      if (err) {
-        console.error(err);
-        return res.status(200).send(err);
+    res1 = await upload(req, res);
+
+    try {
+      console.log(req.file);
+      if (req.file == undefined) {
+        return res.send(`You must select a file.`);
       }
 
-      res.json({ fileName: file.name, filePath: `/uploads/${file.name}` });
-    });
+      return res.json(req.file);
+    } catch (error) {
+      console.log(error);
+      return res.send(`Error when trying upload image: ${error}`);
+    }
   });
 
 module.exports = produtCtrl;
