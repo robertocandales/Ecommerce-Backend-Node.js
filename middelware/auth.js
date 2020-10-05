@@ -8,7 +8,6 @@ async function auth(req, res, next) {
   if (!token) res.status(200).json({ error: 'No token, authorization denied' });
 
   try {
-    // Verify token
     const decoded = jwt.verify(token, config.get('jwtSecret'));
 
     // Add user from payload

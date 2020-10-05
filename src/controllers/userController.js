@@ -13,7 +13,6 @@ userCtrl.getUserData =
     try {
       console.log(req.users, 'req');
       const result = await User.findById(req.users._id);
-      console.log(result, 'result');
     } catch (error) {
       console.log(error);
     }
