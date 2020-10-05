@@ -3,7 +3,6 @@ const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const cors = require('cors'); // middelware para comunucar backend con frontend
-const config = require('config');
 const dotenv = require('dotenv');
 const { notFound, errorHandler } = require('./middelware/errorMiddelware');
 
@@ -25,7 +24,7 @@ app.use(cors());
 
 // DB config
 
-const db = config.get('mongoURI');
+const db = process.env.mongoURI;
 //Connect to Mongo
 mongoose
   .connect(db, {
@@ -41,11 +40,11 @@ mongoose
 app.use('/api/products', products);
 app.use('/api/user', users);
 
-app.use((req, res, next) => {
-  const error = new Error('not found');
-  error.status(404);
-  next(error);
-});
+//app.use((req, res, next) => {
+//  const error = new Error('not found');
+//  error.status(404);
+//  next(error);
+//});
 
 app.use(notFound);
 app.use(errorHandler);

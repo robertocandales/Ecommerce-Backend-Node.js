@@ -14,7 +14,7 @@ const {
 router.route('/').post(postUser);
 router.route('/auth').post(postAuth);
 ////Get
-router.route('/auth/user').get(getUserData);
+router.route('/auth/user').get(auth, getUserData);
 ////Delete
 //router.route('/:id').delete(deleteProduct);
 ////update

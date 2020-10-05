@@ -2,6 +2,11 @@ const { Schema, model } = require('mongoose');
 
 //Create Schema
 const ProductSchema = new Schema({
+  user: {
+    type: Schema.Types.ObjectId,
+    required: true,
+    ref: 'User',
+  },
   name: {
     type: String,
     required: true,
