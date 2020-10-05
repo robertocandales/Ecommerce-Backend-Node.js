@@ -30,9 +30,11 @@ produtCtrl.getAprouct =
 
 // Post Products
 produtCtrl.createProduct = async (req, res) => {
+  console.log(req);
   try {
     const { name, image, description, price } = req.body;
     const newProduct = new Product({
+      user: req.user._id,
       name: name,
       image: image,
       description: description,
