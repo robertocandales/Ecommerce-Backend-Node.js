@@ -9,16 +9,6 @@ const auth = async (req, res, next) => {
       const decoded = jwt.verify(token, process.env.jwtSecret);
       req.user = await User.findById(decoded.id).select('-password');
 
-<<<<<<< HEAD
-  try {
-    const decoded = jwt.verify(token, config.get('jwtSecret'));
-
-    // Add user from payload
-    req.user = decoded;
-    next();
-  } catch (error) {
-    res.status(200).json({ error: 'Token is no valid' });
-=======
       next();
     } catch (error) {
       console.error(error);
@@ -27,7 +17,6 @@ const auth = async (req, res, next) => {
   }
   if (!token) {
     res.status(200).json({ error: 'Not authorized, no token' });
->>>>>>> master
   }
 };
 module.exports = auth;
