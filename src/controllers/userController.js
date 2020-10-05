@@ -68,41 +68,6 @@ userCtrl.postUser = async (req, res) => {
   }
 };
 //Post Auth
-//userCtrl.postAuth = async (req, res) => {
-//  try {
-//    const { email, password } = req.body;
-//    //Simple validation
-//    if (!email || !password) {
-//      return res.status(200).json({ error: 'please enter all fields' });
-//    } else {
-//      // Check for existing user
-//      const user = await User.findOne({ email });
-
-//      if (!user) {
-//        return res.status(200).json({ error: 'User does not exist' });
-//      } else {
-//        // Validate password
-//        const result = await bcrypt.compare(password, user.password);
-//        console.log('result', result);
-//        if (!result) return res.status(error).json({ msg: 'Invalid credentials' });
-//        const result1 = await jwt.sign({ id: result.id }, process.env.jwtSecret, {
-//          expiresIn: '30d',
-//        });
-//        res.json({
-//          token: result1,
-//          user: {
-//            id: user._id,
-//            name: user.name,
-//            email: user.email,
-//          },
-//        });
-//      }
-//    }
-//  } catch (error) {
-//    console.log(error);
-//    res.json({ message: error });
-//  }
-//};
 userCtrl.postAuth = async (req, res) => {
   const { email, password } = req.body;
 

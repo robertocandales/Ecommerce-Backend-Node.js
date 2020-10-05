@@ -40,12 +40,6 @@ mongoose
 app.use('/api/products', products);
 app.use('/api/user', users);
 
-//app.use((req, res, next) => {
-//  const error = new Error('not found');
-//  error.status(404);
-//  next(error);
-//});
-
 app.use(notFound);
 app.use(errorHandler);
 const PORT = process.env.PORT || 5000;
