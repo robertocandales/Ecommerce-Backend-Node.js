@@ -1,9 +1,8 @@
 const util = require('util');
 const multer = require('multer');
 const GridFsStorage = require('multer-gridfs-storage');
-const config = require('config');
 
-const db = config.get('mongoURI');
+const db = process.env.mongoURI;
 
 const storage = new GridFsStorage({
   url: `${db}`,

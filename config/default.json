@@ -1,4 +1,0 @@
-{
-  "mongoURI": "mongodb+srv://robertocandales:C@ndales08@e-commerce.remup.mongodb.net/test?retryWrites=true&w=majority",
-  "jwtSecret": "sl_myJwtSecret"
-}
