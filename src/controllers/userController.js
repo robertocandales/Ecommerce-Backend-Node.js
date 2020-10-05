@@ -6,18 +6,6 @@ userCtrl = {};
 const User = require('../models/userModel');
 
 //Get user data - access private
-<<<<<<< HEAD
-userCtrl.getUserData =
-  (auth,
-  async (req, res) => {
-    try {
-      console.log(req.users, 'req');
-      const result = await User.findById(req.users._id);
-    } catch (error) {
-      console.log(error);
-    }
-  });
-=======
 userCtrl.getUserData = async (req, res) => {
   const user = await User.findById(req.user._id);
 
@@ -33,7 +21,6 @@ userCtrl.getUserData = async (req, res) => {
     throw new Error('User not found');
   }
 };
->>>>>>> master
 
 //Post User
 userCtrl.postUser = async (req, res) => {
