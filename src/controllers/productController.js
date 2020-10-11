@@ -50,7 +50,7 @@ produtCtrl.createProduct = async (req, res) => {
 
 //Delete
 produtCtrl.deleteProduct = async (req, res) => {
-  //console.log(req.params);
+  console.log(req.params);
   try {
     const product = await Product.findByIdAndDelete(req.params.id);
     res.json(product);
