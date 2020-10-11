@@ -22,7 +22,7 @@ userCtrl.getUserData = async (req, res) => {
   }
 };
 
-//Post User
+//Register User
 userCtrl.postUser = async (req, res) => {
   try {
     const { name, email, password } = req.body;
@@ -82,6 +82,7 @@ userCtrl.postAuth = async (req, res) => {
         email: user.email,
         isAdmin: user.isAdmin,
       },
+      status: 'success',
     });
   } else {
     res.status(401);

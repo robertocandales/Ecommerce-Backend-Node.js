@@ -16,6 +16,11 @@ const UserSchema = new Schema({
     required: true,
     unique: true,
   },
+  isAdmin: {
+    type: Boolean,
+    required: true,
+    default: false,
+  },
   register_date: {
     type: Date,
     default: Date.now,
