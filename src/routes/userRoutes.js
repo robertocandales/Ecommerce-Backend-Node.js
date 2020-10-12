@@ -7,7 +7,7 @@ const {
   postAuth,
   getUserData,
   //  deleteProduct,
-  //  updateProduct,
+  updateUser,
 } = require('../controllers/userController');
 
 // @route  Get api/products
@@ -18,6 +18,6 @@ router.route('/auth/user').get(auth, getUserData);
 ////Delete
 //router.route('/:id').delete(deleteProduct);
 ////update
-//router.route('/:id').put(updateProduct);
+router.route('/:id').put(auth, updateUser);
 
 module.exports = router;

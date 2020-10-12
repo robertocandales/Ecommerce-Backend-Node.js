@@ -92,4 +92,36 @@ userCtrl.postAuth = async (req, res) => {
   }
 };
 
+//updateUser
+userCtrl.updateUser = async (req, res) => {
+  const user = await User.findById(req.user._id);
+
+  if (user) {
+    user.name = req.body.name || user.name;
+    user.email = req.body.email || user.email;
+    const admin = req.body.isAdmin || false;
+    user.isAdmin = admin;
+    if (req.body.password) {
+      user.password = req.body.password;
+    }
+    console.log(req.body.isAdmin);
+
+    const updatedUser = await user.save();
+
+    res.json({
+      token: generateToken(user._id),
+      user: {
+        _id: updatedUser._id,
+        name: updatedUser.name,
+        email: updatedUser.email,
+        isAdmin: updatedUser.isAdmin,
+      },
+      status: 'success',
+    });
+  } else {
+    res.status(404);
+    throw new Error('User not found');
+  }
+};
+
 module.exports = userCtrl;

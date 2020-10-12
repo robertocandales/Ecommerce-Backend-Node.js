@@ -39,6 +39,7 @@ produtCtrl.createProduct = async (req, res) => {
       image: image,
       description: description,
       price: price,
+      countInStock: req.body.countInStock,
     });
     await newProduct.save();
     res.json({ message: 'Product Saved' });
@@ -60,23 +61,23 @@ produtCtrl.deleteProduct = async (req, res) => {
 };
 
 //put
-produtCtrl.updateProduct =
-  ('/:id',
-  async (req, res) => {
-    try {
-      const { id } = req.params;
-      const updateAproduct = {
-        name: req.body.name,
-        image: req.body.image,
-        description: req.body.description,
-        price: req.body.price,
-      };
-      const result = await Product.findByIdAndUpdate(id, updateAproduct);
-      res.status(200).json({ massage: `${result.name} update success` });
-    } catch (error) {
-      res.json({ error: error });
-    }
-  });
+produtCtrl.updateProduct = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const updateAproduct = {
+      name: req.body.name,
+      image: req.body.image,
+      description: req.body.description,
+      price: req.body.price,
+      countInStock: req.body.countInStock,
+    };
+    const result = await Product.findByIdAndUpdate(id, updateAproduct);
+    res.status(200).json({ massage: `${result.name} update success` });
+  } catch (error) {
+    res.json({ error: error });
+  }
+};
 
 produtCtrl.UpdateImage =
   ('/upload',
