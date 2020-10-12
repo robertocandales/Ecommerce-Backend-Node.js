@@ -72,19 +72,23 @@ userCtrl.postAuth = async (req, res) => {
 
   const user = await User.findOne({ email });
 
-  if (user && (await user.matchPassword(password))) {
-    res.json({
-      token: generateToken(user._id),
-      user: {
-        _id: user._id,
-        name: user.name,
-        email: user.email,
-        isAdmin: user.isAdmin,
-      },
-      status: 'success',
-    });
+  if (user === null) {
+    res.json({ error: 'user not found' });
   } else {
-    res.status(200).json({ error: 'Invalid email or password' });
+    if (user && (await user.matchPassword(password))) {
+      res.json({
+        token: generateToken(user._id),
+        user: {
+          _id: user._id,
+          name: user.name,
+          email: user.email,
+          isAdmin: user.isAdmin,
+        },
+        status: 'success',
+      });
+    } else {
+      res.status(401).json({ error: 'Invalid email or password' });
+    }
   }
 };
 
