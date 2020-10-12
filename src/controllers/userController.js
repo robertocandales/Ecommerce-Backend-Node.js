@@ -17,8 +17,7 @@ userCtrl.getUserData = async (req, res) => {
       isAdmin: user.isAdmin,
     });
   } else {
-    res.status(404);
-    throw new Error('User not found');
+    res.status(200).json({ error: 'User not found' });
   }
 };
 
@@ -85,8 +84,7 @@ userCtrl.postAuth = async (req, res) => {
       status: 'success',
     });
   } else {
-    res.status(401);
-    throw new Error('Invalid email or password');
+    res.status(200).json({ error: 'Invalid email or password' });
   }
 };
 
