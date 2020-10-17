@@ -5,7 +5,7 @@ userCtrl = {};
 
 const User = require('../models/userModel');
 
-//Get user data - access private
+//Get user by id - access private
 userCtrl.getUserData = async (req, res) => {
   const user = await User.findById(req.user._id);
 
@@ -16,6 +16,16 @@ userCtrl.getUserData = async (req, res) => {
       email: user.email,
       isAdmin: user.isAdmin,
     });
+  } else {
+    res.status(200).json({ error: 'User not found' });
+  }
+};
+//Get all users - access private
+userCtrl.getAllUsers = async (req, res) => {
+  const user = await User.find();
+
+  if (user) {
+    res.status(200).json(user);
   } else {
     res.status(200).json({ error: 'User not found' });
   }
@@ -95,7 +105,36 @@ userCtrl.postAuth = async (req, res) => {
 //updateUser
 userCtrl.updateUser = async (req, res) => {
   const user = await User.findById(req.user._id);
+  if (user) {
+    user.name = req.body.name || user.name;
+    user.email = req.body.email || user.email;
+    const admin = req.body.isAdmin || false;
+    user.isAdmin = admin;
+    if (req.body.password) {
+      user.password = req.body.password;
+    }
 
+    const updatedUser = await user.save();
+
+    res.json({
+      token: generateToken(user._id),
+      user: {
+        _id: updatedUser._id,
+        name: updatedUser.name,
+        email: updatedUser.email,
+        isAdmin: updatedUser.isAdmin,
+      },
+      status: 'success',
+    });
+  } else {
+    res.status(404);
+    throw new Error('User not found');
+  }
+};
+//updateUser role
+userCtrl.roleUpdateUser = async (req, res) => {
+  const user = await User.findById(req.body._id);
+  console.log(req.body);
   if (user) {
     user.name = req.body.name || user.name;
     user.email = req.body.email || user.email;
@@ -123,5 +162,13 @@ userCtrl.updateUser = async (req, res) => {
     throw new Error('User not found');
   }
 };
-
+//Delete
+userCtrl.deleteUser = async (req, res) => {
+  try {
+    const product = await User.findByIdAndDelete(req.params.id);
+    res.json(product);
+  } catch (error) {
+    res.json({ error: 'Product does not exist' });
+  }
+};
 module.exports = userCtrl;
